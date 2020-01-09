@@ -21,7 +21,7 @@ module.exports = {
                 "use": ["style-loader", "css-loader"]
             },
             {
-                "test": /\.(png|jpg|gif|svg)/,
+                "test": /\.(png|jpg|gif|svg|eot|ttf|woff)/,
                 "use": "file-loader"
             }
         ]
@@ -30,7 +30,7 @@ module.exports = {
     "devServer": {
         "hot": true,
         "port": 3000,
-        "contentBase": "./dist"
+        "contentBase": "./public"
     }
 
 }

@@ -1,4 +1,13 @@
 {
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:react/recommended",
+    "plugin:jsx-ally/recommended",
+    "prettier",
+    "prettier/react"
+  ],
+
   "parserOptions": {
     "ecmaVersion": 2017,
     "sourceType": "module",
@@ -24,14 +33,7 @@
     "no-return-assign": 1,
     "no-undef-init": 1,
     "camelcase": 1,
-    "no-inline-comments": 1
-  },
-  "extends": [
-    "eslint:recommended",
-    "plugin:import/errors",
-    "plugin:react/recommended",
-    "plugin:jsx-ally/recommended",
-    "prettier",
-    "prettier/react"
-  ]
+    "no-inline-comments": 1,
+    "quotes": ["single", 1]
+  }
 }
