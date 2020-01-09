@@ -5,7 +5,9 @@ export default (props) => {
     return (
         <div className={`${props.visibilityClass} overlay row`}>
             <SearchBar position="mx-auto mt-5" offset="2" />
-            <span className="icon-cross cross-button" />
+            <span className="icon-cross cross-button" onClick={() => {
+                props.toggleVisibility()
+            }} />
         </div>
     )
 }
