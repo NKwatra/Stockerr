@@ -7,7 +7,6 @@ import AddButton from "./AddButton"
 import AddOverlayContainer from './containers/AddOverlayContainer'
 
 const App = () => {
-    console.log(process.env.REACT_APP_ALPHA_VANTAGE);
     return (
         <div className="container-fluid">
             <AddOverlayContainer />
@@ -17,7 +16,7 @@ const App = () => {
                         <div className="col-4 text-center">
                             <img className="logo" src={logo} />
                         </div>
-                        <SearchBar position="float-right" offset="0" />
+                        <SearchBar position="float-right mt-4" offset="0" />
                     </div>
                 </div>
             </div>

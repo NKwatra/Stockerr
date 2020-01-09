@@ -1,4 +1,7 @@
-import { ACTION_TOGGLE_OVERLAY_VISIBILITY, ACTION_UPDATE_SEARCH_SUGGESTIONS_ADD } from './actions'
+import {
+    ACTION_TOGGLE_OVERLAY_VISIBILITY, ACTION_UPDATE_SEARCH_SUGGESTIONS_ADD
+    , ACTION_ADD_STOCK
+} from './actions'
 import { combineReducers } from 'redux';
 
 const overlayVisibilityReducer = (state = false, action) => {
@@ -18,7 +21,15 @@ const searchSuggestionsReducer = (state = {
     return state
 }
 
+const userStocksReducer = (state = [], action) => {
+    if (action.type === ACTION_ADD_STOCK) {
+        return [...state, action.payload]
+    }
+    return state
+}
+
 export default combineReducers({
     overlayVisibility: overlayVisibilityReducer,
-    searchSuggestions: searchSuggestionsReducer
+    searchSuggestions: searchSuggestionsReducer,
+    userStocks: userStocksReducer
 });

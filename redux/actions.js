@@ -3,6 +3,7 @@ import { REACT_APP_ALPHA_VANTAGE } from "../api"
 
 export const ACTION_TOGGLE_OVERLAY_VISIBILITY = "toggle_overlay";
 export const ACTION_UPDATE_SEARCH_SUGGESTIONS_ADD = "update_suggestions_add";
+export const ACTION_ADD_STOCK = 'add_stock'
 
 export const toggleOverlayVisibility = () => {
     return {
@@ -14,6 +15,16 @@ export const updateSearchSuggestionsAdd = (data) => {
     return {
         type: ACTION_UPDATE_SEARCH_SUGGESTIONS_ADD,
         payload: data
+    }
+}
+
+export const addStock = (symbol, name) => {
+    return {
+        type: ACTION_ADD_STOCK,
+        payload: {
+            symbol,
+            name
+        }
     }
 }
 

@@ -13,7 +13,30 @@ export default class SearchBar extends React.Component {
             focussed: false,
             suggestionLength: 7,
         }
-        this.searchRef = React.createRef()
+        this.searchRef = React.createRef();
+        this.clearRef = React.createRef();
+        this.handleStockClick = this.handleStockClick.bind(this)
+    }
+
+    handleStockClick(event) {
+        console.log(this);
+        let element = event.target;
+        let symbol = element.getAttribute("data-stock-symbol");
+        while (!symbol) {
+            element = element.parentNode;
+            symbol = element.getAttribute("data-stock-symbol")
+        }
+        const name = element.getAttribute("data-stock-name")
+        this.props.stockClick(symbol, name);
+        this.clearRef.current.click();
+        this.props.hideSuggestions();
+    }
+
+    changeFocus(newFocus) {
+        this.setState({
+            focussed: newFocus,
+            suggestionLength: 7
+        })
     }
 
     handleSearchChange(newValue) {
@@ -35,12 +58,6 @@ export default class SearchBar extends React.Component {
         }
     }
 
-    changeFocus(newFocus) {
-        this.setState({
-            focussed: newFocus,
-            suggestionLength: 7
-        })
-    }
 
     render() {
         return (
@@ -50,12 +67,15 @@ export default class SearchBar extends React.Component {
                         value={this.state.text} onChange={(e) => this.handleSearchChange(e.target.value)}
                         onFocus={() => this.changeFocus(true)} ref={this.searchRef} />
                     <span className={this.state.focussed ? "icon-close-solid icons-searchbar" :
-                        "icon-search icons-searchbar"} onClick={() => this.handleSearchButton()} />
+                        "icon-search icons-searchbar"} onClick={() => this.handleSearchButton()}
+                        ref={this.clearRef} />
                 </div>
                 {this.props.data ?
                     this.props.data.slice(0, this.state.suggestionLength).map((suggestion, index) => {
                         return (
-                            <div className={`search-suggestion ${this.props.position} border-bottom`} key={index}>
+                            <div className={`search-suggestion ${this.props.position} border-bottom`}
+                                key={index} data-stock-symbol={suggestion["1. symbol"]}
+                                data-stock-name={suggestion["2. name"]} onClick={this.handleStockClick} >
                                 <div className="search-suggestion-symbol">
                                     <span className="font-weight-bold">{suggestion['1. symbol']}</span>
                                 </div>
