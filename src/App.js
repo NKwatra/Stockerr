@@ -5,6 +5,7 @@ import SearchBar from "./SearchBar"
 import AddButton from "./AddButton"
 import AddOverlayContainer from './containers/AddOverlayContainer'
 import Logo from "./Logo"
+import Confirmation from "./Confirmation"
 
 const App = () => {
     return (
@@ -19,6 +20,7 @@ const App = () => {
                 </div>
             </div>
             <AddButton />
+            <Confirmation />
         </div>
     );
 }

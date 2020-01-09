@@ -29,6 +29,10 @@ export default class SearchBar extends React.Component {
         const name = element.getAttribute("data-stock-name")
         this.props.stockClick(symbol, name);
         this.clearRef.current.click();
+        if (this.props.handleConfirmation) {
+            this.props.handleConfirmation();
+            setTimeout(this.props.handleConfirmation, 1500);
+        }
         this.props.hideSuggestions();
     }
 

@@ -3,7 +3,8 @@ import { REACT_APP_ALPHA_VANTAGE } from "../api"
 
 export const ACTION_TOGGLE_OVERLAY_VISIBILITY = "toggle_overlay";
 export const ACTION_UPDATE_SEARCH_SUGGESTIONS_ADD = "update_suggestions_add";
-export const ACTION_ADD_STOCK = 'add_stock'
+export const ACTION_ADD_STOCK = "add_stock"
+export const ACTION_TOGGLE_CONFIRMATION = "toggle_confirmation";
 
 export const toggleOverlayVisibility = () => {
     return {
@@ -26,6 +27,10 @@ export const addStock = (symbol, name) => {
             name
         }
     }
+}
+
+export const toggleConfirmation = () => {
+    return { type: ACTION_TOGGLE_CONFIRMATION }
 }
 
 export const fetchSuggestionsAdd = (keyword) => {

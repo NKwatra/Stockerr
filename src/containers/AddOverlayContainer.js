@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { toggleOverlayVisibility, fetchSuggestionsAdd, addStock } from "../../redux/actions"
+import { toggleOverlayVisibility, fetchSuggestionsAdd, addStock, toggleConfirmation } from "../../redux/actions"
 import AddOverlay from "../AddOverlay";
 
 const mapStateToProps = state => {
@@ -19,6 +19,9 @@ const mapDispatchtoProps = dispatch => {
         },
         addStock: (symbol, name) => {
             dispatch(addStock(symbol, name))
+        },
+        showConfirmation: () => {
+            dispatch(toggleConfirmation())
         }
     }
 }
