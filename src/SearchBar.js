@@ -1,5 +1,9 @@
 import React from 'react'
 
+// limitation : Repeated quick search might lead to not showing of 
+// suggestions, this is because of the fact that alpha vantage only 
+// allows upto 5 calls per minute. 
+
 export default class SearchBar extends React.Component {
 
     constructor() {
@@ -7,6 +11,7 @@ export default class SearchBar extends React.Component {
         this.state = {
             text: "",
             focussed: false,
+            suggestionLength: 7,
         }
         this.searchRef = React.createRef()
     }
@@ -15,13 +20,15 @@ export default class SearchBar extends React.Component {
         this.setState({
             text: newValue
         })
+        this.props.suggestions(newValue)
     }
 
     handleSearchButton() {
         const currentFocus = this.state.focussed;
         this.setState({
             focussed: !currentFocus,
-            text: currentFocus ? "" : this.state.text
+            text: currentFocus ? "" : this.state.text,
+            suggestionLength: currentFocus ? 0 : 7
         })
         if (!currentFocus) {
             this.searchRef.current.focus()
@@ -30,7 +37,8 @@ export default class SearchBar extends React.Component {
 
     changeFocus(newFocus) {
         this.setState({
-            focussed: newFocus
+            focussed: newFocus,
+            suggestionLength: 7
         })
     }
 
@@ -44,6 +52,17 @@ export default class SearchBar extends React.Component {
                     <span className={this.state.focussed ? "icon-close-solid icons-searchbar" :
                         "icon-search icons-searchbar"} onClick={() => this.handleSearchButton()} />
                 </div>
+                {this.props.data ?
+                    this.props.data.slice(0, this.state.suggestionLength).map((suggestion, index) => {
+                        return (
+                            <div className={`search-suggestion ${this.props.position} border-bottom`} key={index}>
+                                <div className="search-suggestion-symbol">
+                                    <span className="font-weight-bold">{suggestion['1. symbol']}</span>
+                                </div>
+                                <div className="search-suggestion-name">{suggestion['2. name']}</div>
+                            </div>
+                        )
+                    }) : null}
             </div>
         )
     }
