@@ -36,8 +36,8 @@ export default class SearchBar extends React.Component {
 
     render() {
         return (
-            <div className="col-6">
-                <div className="float-right search-container">
+            <div className={`col-8 offset-${this.props.offset}`}>
+                <div className={`${this.props.position} search-container`}>
                     <input type="text" placeholder="Search Companies..." className="searchbar"
                         value={this.state.text} onChange={(e) => this.handleSearchChange(e.target.value)}
                         onFocus={() => this.changeFocus(true)} ref={this.searchRef} />
