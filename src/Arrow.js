@@ -6,22 +6,35 @@ const handleClick = (event, props) => {
     if (classes.indexOf("active") === -1) {
         return;
     }
+    const element = $(".stocks-scroller");
+    const child = element.children().eq(0);
     if (classes.indexOf("right-arrow") != -1) {
         // active left arrow if not
         if (!props.leftActive) {
-            props.activateLeft();
+            props.toggleLeft();
         }
         // scroll right
-        const element = $(".stocks-scroller");
-        const child = element.children().eq(0);
         const pos = element.scrollLeft() + child.width();
         element.animate({ scrollLeft: pos }, 1000);
         // deactivate right if required
         if (element.width() + element.scrollLeft() + child.width() >= element[0].scrollWidth) {
-            props.deactivateRight();
+            props.toggleRight();
         }
         props.updateIndex(props.index + 1)
+    } else {
+        if (!props.rightActive) {
+            props.toggleRight();
+        }
+
+        const pos = element.scrollLeft() - child.width();
+        element.animate({ scrollLeft: pos }, 1000);
+
+        if (element.scrollLeft() < element.width()) {
+            props.toggleLeft();
+        }
+        props.updateIndex(props.index - 1)
     }
+    console.log(element.scrollLeft())
 }
 
 export default (props) => {
