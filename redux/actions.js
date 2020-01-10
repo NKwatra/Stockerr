@@ -108,6 +108,7 @@ export const fetchSingleStock = (stockCode, showLoading) => {
                         price: data[key]["4. close"]
                     })
                 }
+                requiredData.push(result["Meta Data"]["2. Symbol"])
                 dispatch(addStockData(requiredData))
                 if (showLoading) {
                     dispatch(toggleDataLoading())

@@ -11,7 +11,8 @@ export default class Stock extends React.Component {
         this.state = {
             path: '',
             xScale: '',
-            yScale: ''
+            yScale: '',
+            name: ''
         }
     }
 
@@ -27,9 +28,13 @@ export default class Stock extends React.Component {
 
     static getDerivedStateFromProps(props, state) {
 
-        const { data } = props;
-        const xExtent = d3.extent(data, (d) => d.date)
-        const yExtent = d3.extent(data, (d) => d.price)
+        const { data, stocks } = props;
+        const symbol = data[100];
+        const filtered = stocks.filter(stock => stock.symbol === symbol)
+        const name = filtered[0].name;
+        const Data = data.slice(0, 100);
+        const xExtent = d3.extent(Data, (d) => d.date)
+        const yExtent = d3.extent(Data, (d) => d.price)
 
 
         const xScale = d3.scaleTime().domain(xExtent)
@@ -42,9 +47,9 @@ export default class Stock extends React.Component {
             .x(d => xScale(d.date))
             .y(d => yScale(d.price))
 
-        const path = line(data);
+        const path = line(Data);
 
-        return { path, xScale, yScale }
+        return { path, xScale, yScale, name }
 
     }
 
@@ -58,7 +63,10 @@ export default class Stock extends React.Component {
 
     render() {
         return (
-            <div className="col-10 col-lg-8 pr-2">
+            <div className="col-10 col-lg-8 mr-4 pointer">
+                <div className="text-center">
+                    <span className="text-danger">{this.state.name}</span>
+                </div>
                 <svg width={800} height={600} viewBox={"0 0 800 600"}
                     preserveAspectRatio="xMidYMid meet">
                     <path d={this.state.path} stroke={'rgb(243, 136, 81)'}
