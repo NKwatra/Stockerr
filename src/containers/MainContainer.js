@@ -2,6 +2,7 @@ import React from 'react';
 import Arrow from '../Arrow';
 import StockContainer from './StockContainer';
 import { connect } from 'react-redux';
+import { toggleRightActive, toggleLeftActive } from '../../redux/actions';
 
 const mapStateToProps = state => {
     return {
@@ -9,7 +10,19 @@ const mapStateToProps = state => {
         rightActive: state.rightActive,
         loading: state.stocksLoading,
         userStocks: state.userStocks,
-        data: state.stockData
+        data: state.stockData,
+        index: state.index
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        toggleRightArrow: () => {
+            dispatch(toggleRightActive())
+        },
+        toggleLeftArrow: () => {
+            dispatch(toggleLeftActive())
+        }
     }
 }
 
@@ -26,6 +39,12 @@ class MainContainer extends React.Component {
             <Arrow arrowClasses={`${rightArrow}`} />
         </div>)
     }
+
+    componentDidMount() {
+        if (this.props.userStocks.length > this.props.index) {
+            this.props.toggleRightArrow()
+        }
+    }
 }
 
-export default connect(mapStateToProps)(MainContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);

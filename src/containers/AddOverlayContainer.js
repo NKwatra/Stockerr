@@ -4,7 +4,8 @@ import {
     fetchSuggestionsAdd,
     addStock,
     toggleConfirmation,
-    fetchSingleStock
+    fetchSingleStock,
+    toggleRightActive
 } from "../../redux/actions"
 import AddOverlay from "../AddOverlay";
 
@@ -13,7 +14,8 @@ const mapStateToProps = state => {
         visibilityClass: state.overlayVisibility ? "overlay-visible" : "overlay-hidden",
         searchSuggestions: state.searchSuggestions.add.bestMatches,
         index: state.index,
-        length: state.userStocks.length
+        length: state.userStocks.length,
+        rightActive: state.rightActive
     }
 }
 
@@ -33,6 +35,9 @@ const mapDispatchtoProps = dispatch => {
         },
         startStockLoading: (symbol, showLoading) => {
             dispatch(fetchSingleStock(symbol, showLoading))
+        },
+        toggleRightArrow: () => {
+            dispatch(toggleRightActive())
         }
     }
 }

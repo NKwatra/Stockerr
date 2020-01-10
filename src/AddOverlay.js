@@ -8,7 +8,8 @@ export default (props) => {
                 data={props.searchSuggestions} stockClick={props.addStock}
                 hideSuggestions={props.toggleVisibility} handleConfirmation={props.showConfirmation}
                 loadStock={props.startStockLoading} index={props.index}
-                length={props.length || 0} />
+                length={props.length || 0} toggleRightArrow={props.toggleRightArrow}
+                rightActive={props.rightActive} />
             <span className="icon-cross cross-button" onClick={() => {
                 props.toggleVisibility()
             }} />
