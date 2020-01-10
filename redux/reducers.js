@@ -1,7 +1,14 @@
 import {
-    ACTION_TOGGLE_OVERLAY_VISIBILITY, ACTION_UPDATE_SEARCH_SUGGESTIONS_ADD
-    , ACTION_ADD_STOCK,
-    ACTION_TOGGLE_CONFIRMATION
+    ACTION_TOGGLE_OVERLAY_VISIBILITY,
+    ACTION_UPDATE_SEARCH_SUGGESTIONS_ADD,
+    ACTION_ADD_STOCK,
+    ACTION_TOGGLE_CONFIRMATION,
+    ACTION_TOGGLE_DATA_LOADING,
+    ACTION_UPDATE_STOCK_DATA,
+    ACTION_TOGGLE_LEFT_ACTIVE,
+    ACTION_TOGGLE_RIGHT_ACTIVE,
+    ACTION_UPDATE_START_INDEX,
+    ACTION_UPDATE_STOP_INDEX
 } from './actions'
 import { combineReducers } from 'redux';
 
@@ -36,9 +43,45 @@ const confirmationReducer = (state = false, action) => {
     return state;
 }
 
+export const stockLoadingReducer = (state = false, action) => {
+    if (action.type === ACTION_TOGGLE_DATA_LOADING) {
+        return !state
+    }
+    return state;
+}
+
+export const stockDataReducer = (state = [], action) => {
+    if (action.type === ACTION_UPDATE_STOCK_DATA) {
+        return action.payload
+    }
+    return state;
+}
+
+export const leftActiveReducer = (state = false, action) => {
+    return action.type === ACTION_TOGGLE_LEFT_ACTIVE ? !state : state
+}
+
+export const rightActiveReducer = (state = false, action) => {
+    return action.type === ACTION_TOGGLE_RIGHT_ACTIVE ? !state : state
+}
+
+export const startIndexReducer = (state = 0, action) => {
+    return action.type === ACTION_UPDATE_START_INDEX ? action.payload : state
+}
+
+export const stopIndexReducer = (state = 0, action) => {
+    return action.type === ACTION_UPDATE_STOP_INDEX ? action.payload : state
+}
+
 export default combineReducers({
     overlayVisibility: overlayVisibilityReducer,
     searchSuggestions: searchSuggestionsReducer,
     userStocks: userStocksReducer,
-    confirmation: confirmationReducer
+    confirmation: confirmationReducer,
+    stocksLoading: stockLoadingReducer,
+    stockData: stockDataReducer,
+    leftActive: leftActiveReducer,
+    rightActive: rightActiveReducer,
+    startIndex: startIndexReducer,
+    stopIndex: stopIndexReducer
 });

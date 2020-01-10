@@ -3,8 +3,6 @@ import Loading from '../Loading'
 
 export default class StockContainer extends React.Component {
     state = {
-        loading: true,
-        userStocks: [],
         startIndex: 0,
         endIndex: 2
     }
@@ -12,7 +10,7 @@ export default class StockContainer extends React.Component {
     render() {
         return (
             <div className="row">
-                {this.state.userStocks.length > 0 ? this.state.loading ? <Loading /> : null
+                {this.props.userStocks.length > 0 ? this.props.loading ? <Loading /> : null
                     : (
                         <div className=" col-12 mt-5 pt-md-5 text-center">
                             <span className="prompt">
