@@ -53,15 +53,15 @@ svg {
 }
 
 .axis line {
-  stroke: red;
+  stroke: #89a264;
 }
 
 .axis path {
-  stroke: red;
+  stroke: #89a264;
 }
 
 .axis text {
-  fill: red;
+  fill: #89a264;
 }
 
 .confirmation {
@@ -226,10 +226,13 @@ svg {
 }
 
 .stocks-container {
-  height: 40vh;
-  min-height: 400px;
+  height: 460px;
+}
+
+.stocks-scroller {
+  /* display: flex; */
+  flex-wrap: nowrap;
   overflow-x: scroll;
-  overflow-y: scroll;
 }
 
 #add {

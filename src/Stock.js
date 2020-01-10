@@ -1,7 +1,7 @@
 import React from 'react';
 import * as d3 from 'd3';
 
-const margin = { top: 30, right: 30, bottom: 30, left: 30 }
+const margin = { top: 30, right: 30, bottom: 40, left: 40 }
 const width = 800, height = 600;
 
 export default class Stock extends React.Component {
@@ -16,7 +16,14 @@ export default class Stock extends React.Component {
     }
 
     xAxis = d3.axisBottom();
-    yAxis = d3.axisLeft();
+    yAxis = d3.axisLeft().tickFormat(d3.format(".2f"));
+
+    addAxis = () => {
+        this.xAxis.scale(this.state.xScale);
+        this.yAxis.scale(this.state.yScale);
+        d3.select(this.refs.xAxis).call(this.xAxis);
+        d3.select(this.refs.yAxis).call(this.yAxis);
+    }
 
     static getDerivedStateFromProps(props, state) {
 
@@ -42,15 +49,16 @@ export default class Stock extends React.Component {
     }
 
     componentDidUpdate() {
-        this.xAxis.scale(this.state.xScale);
-        this.yAxis.scale(this.state.yScale);
-        d3.select(this.refs.xAxis).call(this.xAxis);
-        d3.select(this.refs.yAxis).call(this.yAxis);
+        this.addAxis()
+    }
+
+    componentDidMount() {
+        this.addAxis()
     }
 
     render() {
         return (
-            <div className="col-10 col-lg-8">
+            <div className="col-10 col-lg-8 pr-2">
                 <svg width={800} height={600} viewBox={"0 0 800 600"}
                     preserveAspectRatio="xMidYMid meet">
                     <path d={this.state.path} stroke={'rgb(243, 136, 81)'}

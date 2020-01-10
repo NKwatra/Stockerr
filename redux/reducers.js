@@ -7,8 +7,8 @@ import {
     ACTION_UPDATE_STOCK_DATA,
     ACTION_TOGGLE_LEFT_ACTIVE,
     ACTION_TOGGLE_RIGHT_ACTIVE,
-    ACTION_UPDATE_START_INDEX,
-    ACTION_UPDATE_STOP_INDEX
+    ACTION_UPDATE_INDEX,
+    ACTION_ADD_STOCK_DATA,
 } from './actions'
 import { combineReducers } from 'redux';
 
@@ -53,6 +53,8 @@ export const stockLoadingReducer = (state = false, action) => {
 export const stockDataReducer = (state = [], action) => {
     if (action.type === ACTION_UPDATE_STOCK_DATA) {
         return action.payload
+    } else if (action.type === ACTION_ADD_STOCK_DATA) {
+        return [...state, action.payload]
     }
     return state;
 }
@@ -65,12 +67,9 @@ export const rightActiveReducer = (state = false, action) => {
     return action.type === ACTION_TOGGLE_RIGHT_ACTIVE ? !state : state
 }
 
-export const startIndexReducer = (state = 0, action) => {
-    return action.type === ACTION_UPDATE_START_INDEX ? action.payload : state
-}
 
-export const stopIndexReducer = (state = 0, action) => {
-    return action.type === ACTION_UPDATE_STOP_INDEX ? action.payload : state
+export const IndexReducer = (state = 0, action) => {
+    return action.type === ACTION_UPDATE_INDEX ? action.payload : state
 }
 
 export default combineReducers({
@@ -82,6 +81,5 @@ export default combineReducers({
     stockData: stockDataReducer,
     leftActive: leftActiveReducer,
     rightActive: rightActiveReducer,
-    startIndex: startIndexReducer,
-    stopIndex: stopIndexReducer
+    index: IndexReducer,
 });

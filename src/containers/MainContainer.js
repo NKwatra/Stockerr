@@ -8,7 +8,8 @@ const mapStateToProps = state => {
         leftActive: state.leftActive,
         rightActive: state.rightActive,
         loading: state.stocksLoading,
-        userStocks: state.stockData
+        userStocks: state.userStocks,
+        data: state.stockData
     }
 }
 
@@ -20,7 +21,7 @@ class MainContainer extends React.Component {
         return (<div className="row mt-5 pt-5">
             <Arrow arrowClasses={`${leftArrow}`} />
             <div className="col-8 stocks-container">
-                <StockContainer loading={this.props.loading} userStocks={this.props.userStocks} />
+                <StockContainer loading={this.props.loading} userStocks={this.props.userStocks} data={this.props.data} />
             </div>
             <Arrow arrowClasses={`${rightArrow}`} />
         </div>)

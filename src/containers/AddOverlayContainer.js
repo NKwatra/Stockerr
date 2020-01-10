@@ -1,11 +1,19 @@
 import { connect } from 'react-redux';
-import { toggleOverlayVisibility, fetchSuggestionsAdd, addStock, toggleConfirmation } from "../../redux/actions"
+import {
+    toggleOverlayVisibility,
+    fetchSuggestionsAdd,
+    addStock,
+    toggleConfirmation,
+    fetchSingleStock
+} from "../../redux/actions"
 import AddOverlay from "../AddOverlay";
 
 const mapStateToProps = state => {
     return {
         visibilityClass: state.overlayVisibility ? "overlay-visible" : "overlay-hidden",
-        searchSuggestions: state.searchSuggestions.add.bestMatches
+        searchSuggestions: state.searchSuggestions.add.bestMatches,
+        index: state.index,
+        length: state.userStocks.length
     }
 }
 
@@ -22,6 +30,9 @@ const mapDispatchtoProps = dispatch => {
         },
         showConfirmation: () => {
             dispatch(toggleConfirmation())
+        },
+        startStockLoading: (symbol, showLoading) => {
+            dispatch(fetchSingleStock(symbol, showLoading))
         }
     }
 }

@@ -12,8 +12,8 @@ export const ACTION_TOGGLE_DATA_LOADING = "toggle_data_loading";
 export const ACTION_UPDATE_STOCK_DATA = "update_stock_data";
 export const ACTION_TOGGLE_LEFT_ACTIVE = "toggle_left_active";
 export const ACTION_TOGGLE_RIGHT_ACTIVE = "toggle_right_active";
-export const ACTION_UPDATE_START_INDEX = "update_start_index";
-export const ACITON_UPDATE_STOP_INDEX = "update_stop_index";
+export const ACTION_UPDATE_INDEX = "update_index";
+export const ACTION_ADD_STOCK_DATA = "add_stock_data";
 
 export const toggleOverlayVisibility = () => {
     return {
@@ -21,19 +21,13 @@ export const toggleOverlayVisibility = () => {
     }
 }
 
-export const updateStartIndex = (newIndex) => {
+export const updateIndex = (newIndex) => {
     return {
-        type: ACTION_UPDATE_START_INDEX,
+        type: ACTION_UPDATE_INDEX,
         payload: newIndex
     }
 }
 
-export const updateStopIndex = (newIndex) => {
-    return {
-        type: ACITON_UPDATE_STOP_INDEX,
-        payload: newIndex
-    }
-}
 
 export const toggleLeftActive = () => {
     return {
@@ -91,21 +85,54 @@ export const updateStockData = (data) => {
     }
 }
 
+export const addStockData = (data) => {
+    return {
+        type: ACTION_ADD_STOCK_DATA,
+        payload: data
+    }
+}
 
+export const fetchSingleStock = (stockCode, showLoading) => {
+    return dispatch => {
+        const url = `${baseUrl}${functionKey}=TIME_SERIES_INTRADAY&${symbolKey}=${stockCode}&${intervalKey}=5min&${dataKey}=json&${apiKey}=${REACT_APP_ALPHA_VANTAGE}`;
+        if (showLoading) {
+            dispatch(toggleDataLoading())
+        }
+        return fetch(url).then(response => response.json())
+            .then(result => {
+                const data = result['Time Series (5min)'];
+                let requiredData = [];
+                for (let key of Object.keys(data)) {
+                    requiredData.push({
+                        date: new Date(key),
+                        price: data[key]["4. close"]
+                    })
+                }
+                dispatch(addStockData(requiredData))
+                if (showLoading) {
+                    dispatch(toggleDataLoading())
+                }
+            })
+    }
+}
 
 export const fetchStockData = (stockCodes) => {
     return dispatch => {
         dispatch(toggleDataLoading())
         let promises = []
+        console.log(stockCodes);
         stockCodes.forEach(stockCode => {
-            const url = `${baseUrl}${functionKey}=TIME_SERIES_INTRADAY&${symbolKey}=${stockCode}&${intervalKey}=15min&${dataKey}=json&${apiKey}=${REACT_APP_ALPHA_VANTAGE}`;
+            console.log(stockCode)
+            const url = `${baseUrl}${functionKey}=TIME_SERIES_INTRADAY&${symbolKey}=${stockCode}&${intervalKey}=5min&${dataKey}=json&${apiKey}=${REACT_APP_ALPHA_VANTAGE}`;
+            console.log(url)
             promises.push(fetch(url)
                 .then(response => response.json()))
         })
         let stockData = []
         Promise.all(promises).then(results => {
             results.forEach(result => {
-                const data = result['Time Series (15min)'];
+                console.log(result);
+                const data = result['Time Series (5min)'];
                 let requiredData = [];
                 for (let key of Object.keys(data)) {
                     requiredData.push({
@@ -115,7 +142,10 @@ export const fetchStockData = (stockCodes) => {
                 }
                 stockData.push(requiredData);
             })
-        }).then(() => dispatch(updateStockData(stockData)))
+        }).then(() => {
+            dispatch(updateStockData(stockData))
+            dispatch(toggleDataLoading())
+        })
 
     }
 }

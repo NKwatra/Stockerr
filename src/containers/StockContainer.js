@@ -1,16 +1,16 @@
 import React from 'react';
 import Loading from '../Loading'
+import Stock from '../Stock';
 
 export default class StockContainer extends React.Component {
-    state = {
-        startIndex: 0,
-        endIndex: 2
-    }
-
     render() {
         return (
-            <div className="row">
-                {this.props.userStocks.length > 0 ? this.props.loading ? <Loading /> : null
+            <div className="row stocks-scroller">
+                {this.props.userStocks.length > 0 ? this.props.loading ? <Loading /> : (
+                    this.props.data.map((stock, index) => {
+                        return <Stock data={stock} key={index} />
+                    })
+                )
                     : (
                         <div className=" col-12 mt-5 pt-md-5 text-center">
                             <span className="prompt">

@@ -27,7 +27,9 @@ export default class SearchBar extends React.Component {
             symbol = element.getAttribute("data-stock-symbol")
         }
         const name = element.getAttribute("data-stock-name")
+        const showLoading = this.props.length - this.props.index < 2
         this.props.stockClick(symbol, name);
+        this.props.loadStock(symbol, showLoading);
         this.clearRef.current.click();
         if (this.props.handleConfirmation) {
             this.props.handleConfirmation();
