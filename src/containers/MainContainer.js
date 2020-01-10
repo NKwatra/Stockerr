@@ -2,15 +2,14 @@ import React from 'react';
 import Arrow from '../Arrow';
 import Loading from '../Loading';
 import Stock from '../Stock';
+import StockContainer from './StockContainer';
 
 export default class MainContainer extends React.Component {
     constructor() {
         super()
         this.state = {
-            loading: false,
             leftActive: false,
             rightActive: true,
-            currentStocks: []
         }
     }
 
@@ -20,7 +19,7 @@ export default class MainContainer extends React.Component {
         return (<div className="row mt-5 pt-5">
             <Arrow arrowClasses={`${leftArrow}`} />
             <div className="col-8 stocks-container">
-                {this.state.loading ? <Loading /> : null}
+                <StockContainer />
             </div>
             <Arrow arrowClasses={`${rightArrow}`} />
         </div>)
