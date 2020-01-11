@@ -231,6 +231,25 @@ svg {
   width: 70%;
 }
 
+.stock-detail-container {
+  background-color: #0c0b10;
+  z-index: 1000;
+  position: fixed;
+  top: 30px;
+  left: 30px;
+  transition: width 1s, height 1s;
+}
+
+.stock-detail-hidden {
+  width: 0;
+  height: 0;
+}
+
+.stock-detail-visible {
+  width: 90vw;
+  height: 90vh;
+}
+
 .stocks-container {
   height: 460px;
 }

@@ -12,8 +12,10 @@ export default class Stock extends React.Component {
             path: '',
             xScale: '',
             yScale: '',
-            name: ''
+            name: '',
+            symbol: ''
         }
+        this.handleClick = this.handleClick.bind(this);
     }
 
     xAxis = d3.axisBottom();
@@ -24,6 +26,10 @@ export default class Stock extends React.Component {
         this.yAxis.scale(this.state.yScale);
         d3.select(this.refs.xAxis).call(this.xAxis);
         d3.select(this.refs.yAxis).call(this.yAxis);
+    }
+
+    handleClick() {
+        this.props.openDetails(true, this.state.symbol, this.state.name);
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -49,7 +55,7 @@ export default class Stock extends React.Component {
 
         const path = line(Data);
 
-        return { path, xScale, yScale, name }
+        return { path, xScale, yScale, name, symbol }
 
     }
 
@@ -65,7 +71,7 @@ export default class Stock extends React.Component {
         return (
             <div className="col-10 col-lg-8 mr-4">
                 <div className="text-center">
-                    <span className="text-danger pointer">{this.state.name}</span>
+                    <span className="text-danger pointer" onClick={this.handleClick}>{this.state.name}</span>
                 </div>
                 <svg width={800} height={600} viewBox={"0 0 800 600"}
                     preserveAspectRatio="xMidYMid meet">

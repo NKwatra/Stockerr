@@ -11,7 +11,7 @@ export default class SearchBar extends React.Component {
         this.state = {
             text: "",
             focussed: false,
-            suggestionLength: 7,
+            suggestionLength: 0,
         }
         this.searchRef = React.createRef();
         this.clearRef = React.createRef();

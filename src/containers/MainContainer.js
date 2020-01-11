@@ -2,7 +2,7 @@ import React from 'react';
 import Arrow from '../Arrow';
 import StockContainer from './StockContainer';
 import { connect } from 'react-redux';
-import { toggleRightActive, toggleLeftActive, updateIndex } from '../../redux/actions';
+import { toggleRightActive, toggleLeftActive, updateIndex, updateDetailActive } from '../../redux/actions';
 
 const mapStateToProps = state => {
     return {
@@ -25,6 +25,9 @@ const mapDispatchToProps = dispatch => {
         },
         updateIndex: (newIndex) => {
             dispatch(updateIndex(newIndex))
+        },
+        openDetails: (active, symbol, name) => {
+            dispatch(updateDetailActive(active, symbol, name))
         }
     }
 }
@@ -41,7 +44,7 @@ class MainContainer extends React.Component {
                 updateIndex={this.props.updateIndex} rightActive={this.props.rightActive} />
             <div className="col-8 stocks-container">
                 <StockContainer loading={this.props.loading} userStocks={this.props.userStocks}
-                    data={this.props.data} />
+                    data={this.props.data} openDetails={this.props.openDetails} />
             </div>
             <Arrow arrowClasses={`${rightArrow}`} leftActive={this.props.leftActive} toggleLeft={this.props.toggleLeftArrow}
                 toggleRight={this.props.toggleRightArrow} index={this.props.index}

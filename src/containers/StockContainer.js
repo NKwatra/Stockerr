@@ -8,7 +8,8 @@ export default class StockContainer extends React.Component {
             <div className="row stocks-scroller">
                 {this.props.userStocks.length > 0 ? this.props.loading ? <Loading /> : (
                     this.props.data.map((stock, index) => {
-                        return <Stock data={stock} key={index} stocks={this.props.userStocks} />
+                        return <Stock data={stock} key={index} stocks={this.props.userStocks}
+                            openDetails={this.props.openDetails} />
                     })
                 )
                     : (

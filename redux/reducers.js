@@ -10,6 +10,7 @@ import {
     ACTION_UPDATE_INDEX,
     ACTION_ADD_STOCK_DATA,
     ACTION_UPDATE_SEARCH_SUGGESTIONS,
+    ACTION_UPDATE_DETAIL_ACTIVE,
 } from './actions'
 import { combineReducers } from 'redux';
 
@@ -18,6 +19,18 @@ import { combineReducers } from 'redux';
 const confirmationReducer = (state = false, action) => {
     if (action.type === ACTION_TOGGLE_CONFIRMATION) {
         return !state;
+    }
+    return state;
+}
+
+const detailReducer = (state = {
+    active: false,
+    symbol: '',
+    name: '',
+    data: []
+}, action) => {
+    if (action.type === ACTION_UPDATE_DETAIL_ACTIVE) {
+        return { ...state, ...action.payload }
     }
     return state;
 }
@@ -105,4 +118,5 @@ export default combineReducers({
     leftActive: leftActiveReducer,
     rightActive: rightActiveReducer,
     index: IndexReducer,
+    detail: detailReducer
 });

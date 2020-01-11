@@ -27,8 +27,11 @@ export const ACTION_TOGGLE_LEFT_ACTIVE = "toggle_left_active";
 // search of new stocks
 export const ACTION_TOGGLE_OVERLAY_VISIBILITY = "toggle_overlay";
 
-// action to toggle whther left arrow is active or not
+// action to toggle whether left arrow is active or not
 export const ACTION_TOGGLE_RIGHT_ACTIVE = "toggle_right_active";
+
+// action to update whether details of a stock are open or not
+export const ACTION_UPDATE_DETAIL_ACTIVE = "update_detail_active";
 
 // action to update the index, of current stock
 // being displayed leftmost on the screen
@@ -92,6 +95,17 @@ export const toggleOverlayVisibility = () => {
 export const toggleRightActive = () => {
     return {
         type: ACTION_TOGGLE_RIGHT_ACTIVE
+    }
+}
+
+export const updateDetailActive = (active, symbol = '', name = '') => {
+    return {
+        type: ACTION_UPDATE_DETAIL_ACTIVE,
+        payload: {
+            active,
+            symbol,
+            name
+        }
     }
 }
 

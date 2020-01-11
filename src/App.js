@@ -7,6 +7,7 @@ import Logo from "./Logo"
 import Confirmation from "./Confirmation"
 import MainContainer from "./containers/MainContainer"
 import SearchBarContainer from "./containers/SearchBarContainer"
+import StockDetailContainer from "./containers/StockDetailContainer"
 
 /* Root Component */
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
             <AddButton />
             <MainContainer />
             <Confirmation />
+            <StockDetailContainer />
         </div>
     );
 }
