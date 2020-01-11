@@ -9,8 +9,10 @@ import reducer from "../redux/reducers"
 // TODO:remove this line before production build
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
+// create store
 export const store = createStore(reducer, composeEnhancers(applyMiddleware(thunkMiddleware)));
 
+// render the root component to screen
 render(
     <Provider store={store}>
         <App />

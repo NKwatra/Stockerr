@@ -8,6 +8,7 @@ import Logo from "./Logo"
 import Confirmation from "./Confirmation"
 import MainContainer from "./containers/MainContainer"
 
+/* Root Component */
 const App = () => {
     return (
         <div className="container-fluid">
@@ -27,4 +28,5 @@ const App = () => {
     );
 }
 
+// TODO: remove the hot, and export only App before production build
 export default hot(App)
