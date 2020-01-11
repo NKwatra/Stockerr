@@ -69,9 +69,10 @@ export default class SearchBar extends React.Component {
 
 
     render() {
+        const flatBottomClass = this.state.suggestionLength > 0 ? "flat-bottom" : ""
         return (
             <div className={`col-8 offset-${this.props.offset}`}>
-                <div className={`${this.props.position} search-container`}>
+                <div className={`${this.props.position} search-container ${flatBottomClass}`}>
                     <input type="text" placeholder="Search Companies..." className="searchbar"
                         value={this.state.text} onChange={(e) => this.handleSearchChange(e.target.value)}
                         onFocus={() => this.changeFocus(true)} ref={this.searchRef} />
@@ -79,19 +80,21 @@ export default class SearchBar extends React.Component {
                         "icon-search icons-searchbar"} onClick={() => this.handleSearchButton()}
                         ref={this.clearRef} />
                 </div>
-                {this.props.data ?
-                    this.props.data.slice(0, this.state.suggestionLength).map((suggestion, index) => {
-                        return (
-                            <div className={`search-suggestion ${this.props.position} border-bottom`}
-                                key={index} data-stock-symbol={suggestion["1. symbol"]}
-                                data-stock-name={suggestion["2. name"]} onClick={this.handleStockClick} >
-                                <div className="search-suggestion-symbol">
-                                    <span className="font-weight-bold">{suggestion['1. symbol']}</span>
+                <div>
+                    {this.props.data ?
+                        this.props.data.slice(0, this.state.suggestionLength).map((suggestion, index) => {
+                            return (
+                                <div className={`search-suggestion ${this.props.position} border-bottom`}
+                                    key={index} data-stock-symbol={suggestion["1. symbol"]}
+                                    data-stock-name={suggestion["2. name"]} onClick={this.handleStockClick} >
+                                    <div className="search-suggestion-symbol">
+                                        <span className="font-weight-bold">{suggestion['1. symbol']}</span>
+                                    </div>
+                                    <div className="search-suggestion-name">{suggestion['2. name']}</div>
                                 </div>
-                                <div className="search-suggestion-name">{suggestion['2. name']}</div>
-                            </div>
-                        )
-                    }) : null}
+                            )
+                        }) : null}
+                </div>
             </div>
         )
     }

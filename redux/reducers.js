@@ -9,6 +9,7 @@ import {
     ACTION_TOGGLE_RIGHT_ACTIVE,
     ACTION_UPDATE_INDEX,
     ACTION_ADD_STOCK_DATA,
+    ACTION_UPDATE_SEARCH_SUGGESTIONS,
 } from './actions'
 import { combineReducers } from 'redux';
 
@@ -46,6 +47,8 @@ const searchSuggestionsReducer = (state = {
 }, action) => {
     if (action.type === ACTION_UPDATE_SEARCH_SUGGESTIONS_ADD) {
         return { ...state, add: action.payload }
+    } else if (action.type === ACTION_UPDATE_SEARCH_SUGGESTIONS) {
+        return { ...state, search: action.payload }
     }
     return state
 }

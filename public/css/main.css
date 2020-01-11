@@ -10,17 +10,13 @@ svg {
 @font-face {
   font-family: "icomoon";
   src: url("../icons/icomoon.eot?rym4of");
-  src: url("../icons/icomoon.eot?rym4of#iefix") format("embedded-opentype"),
-    url("../icons/icomoon.ttf?rym4of") format("truetype"),
-    url("../icons/icomoon.woff?rym4of") format("woff"),
-    url("../icons/icomoon.svg?rym4of#icomoon") format("svg");
+  src: url("../icons/icomoon.eot?rym4of#iefix") format("embedded-opentype"), url("../icons/icomoon.ttf?rym4of") format("truetype"), url("../icons/icomoon.woff?rym4of") format("woff"), url("../icons/icomoon.svg?rym4of#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
 }
 
-[class^="icon-"],
-[class*=" icon-"] {
+[class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: "icomoon" !important;
   speak: none;
@@ -94,6 +90,12 @@ svg {
   font-size: 1rem;
   color: white;
   cursor: pointer;
+}
+
+.flat-bottom {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-bottom: 1px solid #dee2e6!important;
 }
 
 .inactive {

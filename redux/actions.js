@@ -34,6 +34,10 @@ export const ACTION_TOGGLE_RIGHT_ACTIVE = "toggle_right_active";
 // being displayed leftmost on the screen
 export const ACTION_UPDATE_INDEX = "update_index";
 
+// action to update the search suggestions, these suggestions for 
+// searching a stock already in the user's collection
+export const ACTION_UPDATE_SEARCH_SUGGESTIONS = "update_suggestions";
+
 // action to update the search suggestions, these suggestions are for 
 // new stock to be added and would be visible in searchbar 
 // in the overlay component
@@ -50,8 +54,8 @@ export const addStock = (symbol, name) => {
     return {
         type: ACTION_ADD_STOCK,
         payload: {
-            symbol,
-            name
+            "1. symbol": symbol,
+            "2. name": name
         }
     }
 }
@@ -95,6 +99,13 @@ export const updateIndex = (newIndex) => {
     return {
         type: ACTION_UPDATE_INDEX,
         payload: newIndex
+    }
+}
+
+export const updateSearchSuggestions = data => {
+    return {
+        type: ACTION_UPDATE_SEARCH_SUGGESTIONS,
+        payload: data
     }
 }
 

@@ -30,8 +30,8 @@ export default class Stock extends React.Component {
 
         const { data, stocks } = props;
         const symbol = data[100];
-        const filtered = stocks.filter(stock => stock.symbol === symbol)
-        const name = filtered[0].name;
+        const filtered = stocks.filter(stock => stock["1. symbol"] === symbol)
+        const name = filtered[0]["2. name"];
         const Data = data.slice(0, 100);
         const xExtent = d3.extent(Data, (d) => d.date)
         const yExtent = d3.extent(Data, (d) => d.price)
@@ -63,9 +63,9 @@ export default class Stock extends React.Component {
 
     render() {
         return (
-            <div className="col-10 col-lg-8 mr-4 pointer">
+            <div className="col-10 col-lg-8 mr-4">
                 <div className="text-center">
-                    <span className="text-danger">{this.state.name}</span>
+                    <span className="text-danger pointer">{this.state.name}</span>
                 </div>
                 <svg width={800} height={600} viewBox={"0 0 800 600"}
                     preserveAspectRatio="xMidYMid meet">
