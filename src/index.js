@@ -1,20 +1,19 @@
 import React from 'react'
 import { render } from 'react-dom';
 import App from './App'
-import thunkMiddleware from 'redux-thunk';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { PersistGate } from 'redux-persist/integration/react'
 import { Provider } from 'react-redux'
-import reducer from "../redux/reducers"
+import config from '../redux/config'
+import Loading from './Loading';
 
-// TODO:remove this line before production build
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-// create store
-export const store = createStore(reducer, composeEnhancers(applyMiddleware(thunkMiddleware)));
+const { store, persistor } = config;
 
 // render the root component to screen
 render(
     <Provider store={store}>
-        <App />
+        <PersistGate loading={<Loading />} persistor={persistor}>
+            <App />
+        </PersistGate>
     </Provider>
     , document.getElementById("root"))

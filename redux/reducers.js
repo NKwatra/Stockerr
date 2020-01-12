@@ -109,7 +109,13 @@ const userStocksReducer = (state = [], action) => {
         for one stock
         leftActive: Boolean
         rightActive: Boolean
-        index: Number      
+        index: Number 
+        detail: {
+            active: Boolean,
+            symbol: String,
+            name: String,
+            data: Array of stock data
+        }     
     }
 */
 

@@ -1,6 +1,8 @@
 import React from 'react';
-import { store } from './index'
+import config from '../redux/config'
 import { toggleOverlayVisibility } from "../redux/actions"
+
+const { store } = config;
 
 export default () => {
     return (

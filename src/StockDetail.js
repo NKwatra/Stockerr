@@ -21,10 +21,12 @@ export default class StockDetail extends React.Component {
     yAxis = d3.axisLeft().tickFormat(d3.format(".2f"));
 
     static getDerivedStateFromProps(props, state) {
+        console.log("derived called");
         const { data } = props;
         if (!data || data.length === 0)
             return state;
-        const xExtent = d3.extent(data, (d) => d.date);
+        console.log("date type", typeof data[0].date);
+        const xExtent = d3.extent(data, (d) => new Date(d.date));
         const yExtent = d3.extent(data, (d) => d.price);
 
         const xScale = d3.scaleTime()
@@ -36,10 +38,13 @@ export default class StockDetail extends React.Component {
             .range([height - margin.bottom, margin.top]);
 
         const line = d3.line()
-            .x(d => xScale(d.date))
+            .x(d => xScale(new Date(d.date)))
             .y(d => yScale(d.price));
 
+
         const path = line(data);
+
+        console.log(path);
 
         const change = state.values.length > 0 ? state.values[state.values.length - 1].price - data[0].price : 0;
         const changeClass = change > 0 ? "text-success" : change == 0 ? "text-warning" : "text-danger"

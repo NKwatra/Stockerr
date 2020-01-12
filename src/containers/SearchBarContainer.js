@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import SearchBar from "../SearchBar";
 import { updateSearchSuggestions, fetchStockDetails, updateDetailActive } from '../../redux/actions';
-import { store } from "../index";
+import config from "../../redux/config";
 
+const { store } = config;
 
 const loadSuggestions = newValue => {
     if (newValue === '')

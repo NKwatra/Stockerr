@@ -40,7 +40,7 @@ export default class Stock extends React.Component {
         const filtered = stocks.filter(stock => stock["1. symbol"] === symbol)
         const name = filtered[0]["2. name"];
         const Data = data.slice(0, 100);
-        const xExtent = d3.extent(Data, (d) => d.date)
+        const xExtent = d3.extent(Data, (d) => new Date(d.date))
         const yExtent = d3.extent(Data, (d) => d.price)
 
 
@@ -51,7 +51,7 @@ export default class Stock extends React.Component {
             .range([height - margin.bottom, margin.top])
 
         const line = d3.line()
-            .x(d => xScale(d.date))
+            .x(d => xScale(new Date(d.date)))
             .y(d => yScale(d.price))
 
         const path = line(Data);
