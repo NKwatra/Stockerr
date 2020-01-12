@@ -29,6 +29,7 @@ export default class Stock extends React.Component {
     }
 
     handleClick() {
+        this.props.loadStockData(this.state.symbol);
         this.props.openDetails(true, this.state.symbol, this.state.name);
     }
 

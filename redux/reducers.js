@@ -11,6 +11,7 @@ import {
     ACTION_ADD_STOCK_DATA,
     ACTION_UPDATE_SEARCH_SUGGESTIONS,
     ACTION_UPDATE_DETAIL_ACTIVE,
+    ACTION_UPDATE_DETAIL_ACTIVE_DATA,
 } from './actions'
 import { combineReducers } from 'redux';
 
@@ -31,6 +32,10 @@ const detailReducer = (state = {
 }, action) => {
     if (action.type === ACTION_UPDATE_DETAIL_ACTIVE) {
         return { ...state, ...action.payload }
+    } else if (action.type === ACTION_UPDATE_DETAIL_ACTIVE_DATA) {
+        console.log("data here");
+        console.log(action.payload);
+        return { ...state, data: action.payload }
     }
     return state;
 }

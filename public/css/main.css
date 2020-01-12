@@ -86,7 +86,7 @@ svg {
 .cross-button {
   position: absolute;
   top: 20px;
-  right: 20px;
+  right: 35px;
   font-size: 1rem;
   color: white;
   cursor: pointer;
@@ -145,6 +145,10 @@ svg {
 
 .icon-arrow-down2:before {
   content: "\ea3e";
+}
+
+.icon-arrow-left2:before {
+  content: "\ea40";
 }
 
 .loading {
@@ -246,8 +250,8 @@ svg {
 }
 
 .stock-detail-visible {
-  width: 90vw;
-  height: 90vh;
+  width: 95vw;
+  height: 95vh;
 }
 
 .stocks-container {
@@ -258,6 +262,15 @@ svg {
   /* display: flex; */
   flex-wrap: nowrap;
   overflow-x: scroll;
+}
+
+.values-container {
+  margin-top: 3rem;
+  overflow-y: scroll;
+  font-size: 1.5rem;
+  padding-left: 20px;
+  color: #5b5a5e;
+  height: 50vh;
 }
 
 #add {

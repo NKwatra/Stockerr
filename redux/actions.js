@@ -33,6 +33,9 @@ export const ACTION_TOGGLE_RIGHT_ACTIVE = "toggle_right_active";
 // action to update whether details of a stock are open or not
 export const ACTION_UPDATE_DETAIL_ACTIVE = "update_detail_active";
 
+// action to update data of stock open in detail mode
+export const ACTION_UPDATE_DETAIL_ACTIVE_DATA = "update_detail_active_data";
+
 // action to update the index, of current stock
 // being displayed leftmost on the screen
 export const ACTION_UPDATE_INDEX = "update_index";
@@ -106,6 +109,13 @@ export const updateDetailActive = (active, symbol = '', name = '') => {
             symbol,
             name
         }
+    }
+}
+
+export const updateDetailActiveData = data => {
+    return {
+        type: ACTION_UPDATE_DETAIL_ACTIVE_DATA,
+        payload: data
     }
 }
 
@@ -231,6 +241,29 @@ export const fetchStockData = (stockCodes) => {
             dispatch(toggleDataLoading())
         })
 
+    }
+}
+
+/*  function to fetch details of a stock, i.e. get value of 
+    stock every minute
+    * stockCode(String): symbol of stock
+ */
+
+export const fetchStockDetails = stockCode => {
+    return dispatch => {
+        const url = `${baseUrl}${functionKey}=TIME_SERIES_INTRADAY&${symbolKey}=${stockCode}&${intervalKey}=1min&${dataKey}=json&${apiKey}=${REACT_APP_ALPHA_VANTAGE}`;
+        return fetch(url)
+            .then(response => response.json())
+            .then(result => {
+                const data = result["Time Series (1min)"];
+                let requiredData = []
+                for (let key of Object.keys(data)) {
+                    const date = new Date(key);
+                    const price = data[key]["4. close"];
+                    requiredData.push({ date, price })
+                }
+                dispatch(updateDetailActiveData(requiredData))
+            })
     }
 }
 
