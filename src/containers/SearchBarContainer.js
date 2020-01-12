@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import SearchBar from "../SearchBar";
-import { updateSearchSuggestions } from '../../redux/actions';
+import { updateSearchSuggestions, fetchStockDetails, updateDetailActive } from '../../redux/actions';
 import { store } from "../index";
 
 
@@ -11,7 +11,6 @@ const loadSuggestions = newValue => {
     const state = store.getState();
     const userStocks = state.userStocks;
     const regex = new RegExp(`^.*${newValue}.*$`, "i");
-    console.log(regex.toString())
     return userStocks.filter(stock => {
         return regex.test(stock["2. name"]);
     })
@@ -22,6 +21,10 @@ const mapDispatchToProps = dispatch => {
     return {
         suggestions: newValue => {
             dispatch(updateSearchSuggestions(loadSuggestions(newValue)))
+        },
+        stockClick: (symbol, name) => {
+            dispatch(fetchStockDetails(symbol))
+            dispatch(updateDetailActive(true, symbol, name))
         }
     }
 }

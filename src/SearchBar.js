@@ -19,7 +19,6 @@ export default class SearchBar extends React.Component {
     }
 
     handleStockClick(event) {
-        console.log(this);
         let element = event.target;
         let symbol = element.getAttribute("data-stock-symbol");
         while (!symbol) {
@@ -27,18 +26,8 @@ export default class SearchBar extends React.Component {
             symbol = element.getAttribute("data-stock-symbol")
         }
         const name = element.getAttribute("data-stock-name")
-        const showLoading = this.props.length - this.props.index < 2
-        if (this.props.length > this.props.index && !this.props.rightActive) {
-            this.props.toggleRightArrow()
-        }
-        this.props.stockClick(symbol, name);
-        this.props.loadStock(symbol, showLoading);
         this.clearRef.current.click();
-        if (this.props.handleConfirmation) {
-            this.props.handleConfirmation();
-            setTimeout(this.props.handleConfirmation, 1500);
-        }
-        this.props.hideSuggestions();
+        this.props.stockClick(symbol, name);
     }
 
     changeFocus(newFocus) {
