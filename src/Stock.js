@@ -30,6 +30,11 @@ export default class Stock extends React.Component {
 
     handleClick() {
         this.props.loadStockData(this.state.symbol);
+        const interval = setInterval(() => {
+            this.props.loadStockData(this.state.symbol)
+        }, 60000);
+        console.log(this.props.setStockInterval)
+        this.props.setStockInterval(interval)
         this.props.openDetails(true, this.state.symbol, this.state.name);
     }
 

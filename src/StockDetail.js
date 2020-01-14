@@ -5,7 +5,6 @@ import * as d3 from "d3";
 const height = 600, width = 800,
     margin = { top: 20, right: 20, left: 40, bottom: 40 }
 
-// TODO: check for double api calls and no updates of state
 
 export default class StockDetail extends React.Component {
 
@@ -21,11 +20,10 @@ export default class StockDetail extends React.Component {
     yAxis = d3.axisLeft().tickFormat(d3.format(".2f"));
 
     static getDerivedStateFromProps(props, state) {
-        console.log("derived called");
+        console.log("derived state called", state, props)
         const { data } = props;
         if (!data || data.length === 0)
             return state;
-        console.log("date type", typeof data[0].date);
         const xExtent = d3.extent(data, (d) => new Date(d.date));
         const yExtent = d3.extent(data, (d) => d.price);
 
@@ -44,34 +42,24 @@ export default class StockDetail extends React.Component {
 
         const path = line(data);
 
-        console.log(path);
-
-        const change = state.values.length > 0 ? state.values[state.values.length - 1].price - data[0].price : 0;
-        const changeClass = change > 0 ? "text-success" : change == 0 ? "text-warning" : "text-danger"
+        const change = state.values.length > 0 ? state.values[0].price - data[0].price : 0;
+        const changeClass = change < 0 ? "text-success" : change == 0 ? "text-warning" : "text-danger"
 
         return { path, xScale, yScale, changeClass, values: [data[0], ...(state.values)] }
     }
 
 
     componentDidUpdate() {
-        console.log(this.state)
         if (this.state.xScale !== '') {
             this.xAxis.scale(this.state.xScale);
             this.yAxis.scale(this.state.yScale);
             d3.select(this.refs.xAxis).call(this.xAxis);
             d3.select(this.refs.yAxis).call(this.yAxis);
-            if (this.props.visibility === 'visible') {
-                console.log("update: 53", Date.now());
-                this.timeout = setTimeout(() => {
-                    console.log("time of run", Date.now())
-                    this.props.rePoll(this.props.symbol)
-                }, 60000);
-            }
         }
     }
 
     componentWillUnmount() {
-        clearTimeout(this.timeout)
+        clearInterval(this.props.interval);
     }
 
     render() {
@@ -88,7 +76,7 @@ export default class StockDetail extends React.Component {
                         changeClass: "same",
                         values: []
                     })
-                    clearTimeout(this.timeout);
+                    clearInterval(this.props.interval);
                 }}></span>
                 {this.props.visibility === "visible" ? this.props.data.length > 0 ? (<div className="row mt-lg-5 mt-3">
                     <div className="col-8">
@@ -104,7 +92,7 @@ export default class StockDetail extends React.Component {
                         <span className="text-light h4">{this.props.name}</span><br />
                         <span className="text-light h4">({this.props.symbol})</span><br />
                         <div className={`${this.state.changeClass} mt-4`}>
-                            <span className="h1 font-weight-light">$ {(+(this.state.values[this.state.values.length - 1].price)).toFixed(2)}</span>
+                            <span className="h1 font-weight-light">$ {(+(this.state.values[0].price)).toFixed(2)}</span>
                             <span className={`${arrow} ml-3 h2`} ></span>
                         </div>
                         <div className="values-container">

@@ -12,6 +12,7 @@ import {
     ACTION_UPDATE_SEARCH_SUGGESTIONS,
     ACTION_UPDATE_DETAIL_ACTIVE,
     ACTION_UPDATE_DETAIL_ACTIVE_DATA,
+    ACTION_SET_INTERVAL,
 } from './actions'
 import { combineReducers } from 'redux';
 
@@ -42,6 +43,13 @@ const detailReducer = (state = {
 
 const IndexReducer = (state = 0, action) => {
     return action.type === ACTION_UPDATE_INDEX ? action.payload : state
+}
+
+const intervalReducer = (state = "", action) => {
+    if (action.type === ACTION_SET_INTERVAL) {
+        return action.payload
+    }
+    return state
 }
 
 const leftActiveReducer = (state = false, action) => {
@@ -115,7 +123,8 @@ const userStocksReducer = (state = [], action) => {
             symbol: String,
             name: String,
             data: Array of stock data
-        }     
+        }
+        interval : Integer    
     }
 */
 
@@ -129,5 +138,6 @@ export default combineReducers({
     leftActive: leftActiveReducer,
     rightActive: rightActiveReducer,
     index: IndexReducer,
-    detail: detailReducer
+    detail: detailReducer,
+    interval: intervalReducer
 });

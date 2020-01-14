@@ -9,7 +9,8 @@ export default class StockContainer extends React.Component {
                 {this.props.userStocks.length > 0 ? this.props.loading ? <Loading /> : (
                     this.props.data.map((stock, index) => {
                         return <Stock data={stock} key={index} stocks={this.props.userStocks}
-                            openDetails={this.props.openDetails} loadStockData={this.props.loadStockData} />
+                            openDetails={this.props.openDetails} loadStockData={this.props.loadStockData}
+                            setStockInterval={this.props.setStockInterval} />
                     })
                 )
                     : (

@@ -12,6 +12,9 @@ export const ACTION_ADD_STOCK = "add_stock"
 // action to add data for a single stock
 export const ACTION_ADD_STOCK_DATA = "add_stock_data";
 
+// action to set interval for repeated stock data fetching
+export const ACTION_SET_INTERVAL = "set_interval";
+
 // action to toggle the confirmation message, this message is 
 // displayed at bottom of screen when user adds a new stock
 export const ACTION_TOGGLE_CONFIRMATION = "toggle_confirmation";
@@ -70,6 +73,13 @@ export const addStockData = (data) => {
     return {
         type: ACTION_ADD_STOCK_DATA,
         payload: data
+    }
+}
+
+export const setDataInterval = (interval) => {
+    return {
+        type: ACTION_SET_INTERVAL,
+        payload: interval
     }
 }
 
