@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import SearchBar from "../SearchBar";
-import { updateSearchSuggestions, fetchStockDetails, updateDetailActive } from '../../redux/actions';
+import { updateSearchSuggestions, fetchStockDetails, updateDetailActive, setDataInterval } from '../../redux/actions';
 import config from "../../redux/config";
 
 const { store } = config;
@@ -25,6 +25,8 @@ const mapDispatchToProps = dispatch => {
         },
         stockClick: (symbol, name) => {
             dispatch(fetchStockDetails(symbol))
+            const interval = setInterval(() => dispatch(fetchStockDetails(symbol, name), 60000));
+            dispatch(setDataInterval(interval))
             dispatch(updateDetailActive(true, symbol, name))
         }
     }
