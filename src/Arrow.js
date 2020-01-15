@@ -16,11 +16,17 @@ const handleClick = (event, props) => {
         // scroll right
         const pos = element.scrollLeft() + child.width();
         element.animate({ scrollLeft: pos }, 1000);
+
         // deactivate right if required
         if (element.width() + element.scrollLeft() + child.width() >= element[0].scrollWidth) {
             props.toggleRight();
         }
         props.updateIndex(props.index + 1)
+
+        // fetch data for next stock if extra stock is present
+        if (props.userStocks.length > props.dataLength) {
+            props.loadNextStock(props.userStocks[props.index]["1. symbol"])
+        }
     } else {
         if (!props.rightActive) {
             props.toggleRight();

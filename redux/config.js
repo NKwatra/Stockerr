@@ -8,7 +8,7 @@ import reducer from "./reducers";
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['userStocks', 'stockData', 'interval']
+    whitelist: ['userStocks', 'interval']
 }
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
