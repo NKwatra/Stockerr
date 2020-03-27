@@ -2,6 +2,10 @@ import React from 'react';
 import Loading from '../Loading'
 import Stock from '../Stock';
 
+/*
+    This component represents the stock's container, which contains a
+    list of all available stocks
+*/
 export default class StockContainer extends React.Component {
     render() {
         return (
@@ -14,6 +18,7 @@ export default class StockContainer extends React.Component {
                     })
                 )
                     : (
+                        /* Prompt user to add new stocks to collection */
                         <div className=" col-12 mt-5 pt-md-5 text-center">
                             <span className="prompt">
                                 Your seem to have an empty collection,<br /> <br />

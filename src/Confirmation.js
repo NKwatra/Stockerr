@@ -8,6 +8,7 @@ const mapStatetoProps = state => {
     }
 }
 
+// Component to show confirmation when a new stock is added to user collection
 export default connect(mapStatetoProps)((props) => {
     return (
         <div className={`confirmation ${props.visibility}`}>

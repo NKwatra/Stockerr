@@ -4,6 +4,7 @@ import { toggleOverlayVisibility } from "../redux/actions"
 
 const { store } = config;
 
+// component to display add button, which allows user to add new stock to collection
 export default () => {
     return (
         <div className="row">

@@ -4,6 +4,7 @@ import StockContainer from './StockContainer';
 import { connect } from 'react-redux';
 import { toggleRightActive, toggleLeftActive, updateIndex, updateDetailActive, fetchStockDetails, setDataInterval, fetchSingleStock } from '../../redux/actions';
 
+// get props from the redux store state
 const mapStateToProps = state => {
     return {
         leftActive: state.leftActive,
@@ -15,6 +16,7 @@ const mapStateToProps = state => {
     }
 }
 
+// define props corresponding to dispatching of actions in redux
 const mapDispatchToProps = dispatch => {
     return {
         toggleRightArrow: () => {
@@ -65,7 +67,9 @@ class MainContainer extends React.Component {
     }
 
     componentDidMount() {
+        // check if there are more stock in collection than visible on screen
         if (this.props.userStocks.length > this.props.index) {
+            // make right arrow active in case of more stocks
             this.props.toggleRightArrow()
         }
     }

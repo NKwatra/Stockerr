@@ -167,7 +167,7 @@ export const updateStockData = (data) => {
 
 export const fetchSingleStock = (stockCode, showLoading) => {
 
-    // return function to be handles by middleware 
+    // return function to be handled by middleware 
     // dispatch(function) : store.dispatch() function to 
     // dispatch actions(synchronous)
     return dispatch => {
@@ -184,8 +184,10 @@ export const fetchSingleStock = (stockCode, showLoading) => {
                 const data = result['Time Series (5min)'];
                 let requiredData = [];
                 for (let key of Object.keys(data)) {
+                    // add a T in date for support on safari
+                    let dateString = key.replace(/\s/,"T");
                     requiredData.push({
-                        date: new Date(key),
+                        date: new Date(dateString),
                         price: data[key]["4. close"]
                     })
                 }
@@ -234,8 +236,9 @@ export const fetchStockData = (stockCodes) => {
                 const data = result['Time Series (5min)'];
                 let requiredData = [];
                 for (let key of Object.keys(data)) {
+                    let dateString = key.replace(/\s/, "T");
                     requiredData.push({
-                        date: new Date(key),
+                        date: new Date(dateString),
                         price: data[key]["4. close"]
                     })
                 }
@@ -268,7 +271,7 @@ export const fetchStockDetails = stockCode => {
                 const data = result["Time Series (1min)"];
                 let requiredData = []
                 for (let key of Object.keys(data)) {
-                    const date = new Date(key);
+                    const date = new Date(key.replace(/\s/,"T"));
                     const price = data[key]["4. close"];
                     requiredData.push({ date, price })
                 }

@@ -6,6 +6,9 @@ import config from "../../redux/config";
 
 const { store } = config;
 
+/*
+    This function loads suggestions from collection
+*/
 const loadSuggestions = newValue => {
     if (newValue === '')
         return
@@ -24,8 +27,10 @@ const mapDispatchToProps = dispatch => {
             dispatch(updateSearchSuggestions(loadSuggestions(newValue)))
         },
         stockClick: (symbol, name) => {
-            dispatch(fetchStockDetails(symbol))
-            const interval = setInterval(() => dispatch(fetchStockDetails(symbol, name), 60000));
+            dispatch(fetchStockDetails(symbol));
+            const interval = setInterval(() => {
+                dispatch(fetchStockDetails(symbol, name))
+            },60000);
             dispatch(setDataInterval(interval))
             dispatch(updateDetailActive(true, symbol, name))
         }

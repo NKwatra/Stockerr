@@ -8,6 +8,7 @@ const height = 600, width = 800,
 
 export default class StockDetail extends React.Component {
 
+    // state used for drawing stock graph
     state = {
         path: '',
         yScale: '',
@@ -16,17 +17,21 @@ export default class StockDetail extends React.Component {
         values: []
     }
 
+    // references for graph axis
     xAxis = d3.axisBottom();
     yAxis = d3.axisLeft().tickFormat(d3.format(".2f"));
 
     static getDerivedStateFromProps(props, state) {
-        console.log("derived state called", state, props)
         const { data } = props;
+        // make sure data is loaded
         if (!data || data.length === 0)
             return state;
+
+        // create extents for x and y scale    
         const xExtent = d3.extent(data, (d) => new Date(d.date));
         const yExtent = d3.extent(data, (d) => d.price);
 
+        // create scales for x and y axis
         const xScale = d3.scaleTime()
             .domain(xExtent)
             .range([margin.left, width - margin.right]);
@@ -35,21 +40,25 @@ export default class StockDetail extends React.Component {
             .domain(yExtent)
             .range([height - margin.bottom, margin.top]);
 
+        // get reference to line to draw stock curve    
         const line = d3.line()
             .x(d => xScale(new Date(d.date)))
             .y(d => yScale(d.price));
 
-
+        // get the path in terms of keywords for stock curve
         const path = line(data);
 
+        // determine whether stock value, increased or decreased
         const change = state.values.length > 0 ? state.values[0].price - data[0].price : 0;
         const changeClass = change < 0 ? "text-success" : change == 0 ? "text-warning" : "text-danger"
 
+        // return state
         return { path, xScale, yScale, changeClass, values: [data[0], ...(state.values)] }
     }
 
 
     componentDidUpdate() {
+        // create axis with each update of data
         if (this.state.xScale !== '') {
             this.xAxis.scale(this.state.xScale);
             this.yAxis.scale(this.state.yScale);
@@ -59,6 +68,7 @@ export default class StockDetail extends React.Component {
     }
 
     componentWillUnmount() {
+        // clear interval used for repeated fetching of data
         clearInterval(this.props.interval);
     }
 

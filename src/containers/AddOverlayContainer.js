@@ -9,6 +9,7 @@ import {
 } from "../../redux/actions"
 import AddOverlay from "../AddOverlay";
 
+// send props to access the current state of app
 const mapStateToProps = state => {
     return {
         visibilityClass: state.overlayVisibility ? "overlay-visible" : "overlay-hidden",
@@ -19,6 +20,7 @@ const mapStateToProps = state => {
     }
 }
 
+// send props to add overlay to disptach apt actions on clicking a stock
 const mapDispatchtoProps = dispatch => {
     return {
         toggleVisibility: () => {
@@ -30,7 +32,7 @@ const mapDispatchtoProps = dispatch => {
         addStock: (symbol, name) => {
             dispatch(addStock(symbol, name))
         },
-        showConfirmation: () => {
+        toggleConfirmation: () => {
             dispatch(toggleConfirmation())
         },
         startStockLoading: (symbol, showLoading) => {
@@ -42,4 +44,7 @@ const mapDispatchtoProps = dispatch => {
     }
 }
 
+// This just act as a contact for the overlay component and supplies the
+// required props by mapping them from state of store and dispatch provided
+// by the store.
 export default connect(mapStateToProps, mapDispatchtoProps)(AddOverlay);
