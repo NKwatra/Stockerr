@@ -5,6 +5,8 @@ Stockerr
 ### Data source : Alpha Vantage API for stocks (<https://www.alphavantage.co/documentation/>).
 
 
+### NOTE : Because of limitations imposed by API of atmost 5 calls per minute, the stock data may not load at times.
+
 ## How To Run :
 1. Clone the repository 
 
